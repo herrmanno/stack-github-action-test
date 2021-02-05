@@ -1,7 +1,7 @@
 name: Haskell CI
 
 env:
-  STACK_ROOT: .
+  STACK_ROOT: ~
   EXECUTABLE: foobar
 
 on:
