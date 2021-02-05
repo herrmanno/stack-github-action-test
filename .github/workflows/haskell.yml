@@ -10,8 +10,6 @@ jobs:
   build:
 
     runs-on: macos-latest
-    #env:
-    #  STACK_ROOT: ${{runner.os}}
 
     steps:
     - uses: actions/checkout@v2
@@ -24,12 +22,8 @@ jobs:
       env:
         cache-name: cache-stack
       with:
-        path: ~/.stack-work
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.yaml') }}-${{ hashFiles('**/stack.yaml') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
+        path: .stack-work
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('package.yaml') }}-${{ hashFiles('stack.yaml') }}
     - name: Setup Stack
       env:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: true
@@ -44,4 +38,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: executable
-        path: ~/.stack-work/install/*/*/*/bin/*
+        path: .stack-work/install/*/*/*/bin/*
