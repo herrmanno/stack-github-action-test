@@ -1,7 +1,7 @@
 name: Haskell CI
 
 env:
-  STACK_ROOT: ~
+  STACK_ROOT: ${{ env.GITHUB_WORKSPACE }}
   EXECUTABLE: foobar
 
 on:
@@ -12,8 +12,11 @@ on:
 
 jobs:
   build:
+    strategy:
+      matrix:
+        os: [macos-latest]
 
-    runs-on: macos-latest
+    runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v2
