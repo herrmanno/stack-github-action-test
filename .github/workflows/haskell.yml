@@ -1,9 +1,5 @@
 name: Haskell CI
 
-env:
-  STACK_ROOT: ${{ github.workspace }}/.stack
-  EXECUTABLE: foobar
-
 on:
   push:
     branches: [ master ]
@@ -15,6 +11,9 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest,ubuntu-latest,windows-latest]
+    env:
+      STACK_ROOT: ${{ github.workspace }}/.stack
+      EXECUTABLE: foobar
 
     runs-on: ${{ matrix.os }}
 
@@ -25,14 +24,14 @@ jobs:
       env:
         cache-name: stack-work
       with:
-        path: .stack-work/
+        path: .stack-work
         key: ${{ runner.os }}-cache-${{ env.cache-name }}-${{ hashFiles('package.yaml','stack.yml','.github/workflows/haskell.yml') }}
     - name: Cache .stack
       uses: actions/cache@v2
       env:
         cache-name: stack
       with:
-        path: .stack/
+        path: .stack
         key: ${{ runner.os }}-cache-${{ env.cache-name }}-${{ hashFiles('stack.yml','.github/workflows/haskell.yml') }}
     - name: Setup Stack
       env:
@@ -46,4 +45,6 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: ${{ runner.os }}-${{ env.EXECUTABLE }}
-        path: .stack-work/install/*/*/*/bin/*
+        path: |
+          .stack-work/install/*/*/*/bin/*
+          .stack-work\install\*\*\*\bin\*
