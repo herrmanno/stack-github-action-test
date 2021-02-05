@@ -1,0 +1,38 @@
+name: Haskell CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    #- uses: actions/setup-haskell@v1
+    #  with:
+    #    ghc-version: '8.10.3'
+    #    cabal-version: '3.2'
+    - name: Cache
+      uses: actions/cache@v1
+      env:
+        cache-name: cache-stack
+      with:
+        path: ~/.stack-work
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.yaml') }}-${{ hashFiles('**/stack.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+    - name: Setup Stack
+      # You may pin to the exact commit or the version.
+      # uses: mstksg/setup-stack@69e4283faeb7a89f26326daa36e9cc0fa7a023bd
+      uses: mstksg/setup-stack@v2
+    - name: Build
+      run: stack build
+    - name: Run tests
+      run: stack test
