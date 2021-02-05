@@ -1,6 +1,7 @@
 name: Haskell CI
 
 env:
+  STACK_ROOT: ${{ github.workspace }}/.stack
   EXECUTABLE: foobar
 
 on:
@@ -36,15 +37,15 @@ jobs:
     - name: Setup Stack
       env:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-        STACK_ROOT: ${{ github.workspace }}
+        #STACK_ROOT: ${{ github.workspace }}/.stack
       uses: mstksg/setup-stack@v2
     - name: Build
       env:
-        STACK_ROOT: ${{ github.workspace }}
+        #STACK_ROOT: ${{ github.workspace }}/.stack
       run: stack build
     - name: Run tests
       env:
-        STACK_ROOT: ${{ github.workspace }}
+        #STACK_ROOT: ${{ github.workspace }}/.stack
       run: stack test
     - name: Archive production artifacts
       uses: actions/upload-artifact@v2
