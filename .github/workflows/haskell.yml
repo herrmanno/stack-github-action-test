@@ -29,6 +29,8 @@ jobs:
           ${{ runner.os }}-build-
           ${{ runner.os }}-
     - name: Setup Stack
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
       # You may pin to the exact commit or the version.
       # uses: mstksg/setup-stack@69e4283faeb7a89f26326daa36e9cc0fa7a023bd
       uses: mstksg/setup-stack@v2
