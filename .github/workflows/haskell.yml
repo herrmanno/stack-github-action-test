@@ -44,4 +44,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: executable
-        path: .stack-work/dist/*/*/build/install/*/*/*/bin/*
+        path: ~/.stack-work/install/*/*/*/bin/*
