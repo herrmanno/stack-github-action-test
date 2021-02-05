@@ -46,5 +46,5 @@ jobs:
       with:
         name: ${{ runner.os }}-${{ env.EXECUTABLE }}
         path: |
-          .stack-work/install/*/*/*/bin/*
-          .stack-work\install\*\bin\*
+          .stack-work/install/
+          .stack-work\install\
