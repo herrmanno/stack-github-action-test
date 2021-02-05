@@ -1,7 +1,7 @@
 name: Haskell CI
 
 env:
-  STACK_ROOT: $GITHUB_WORKSPACE
+  STACK_ROOT: ${{ HOME }}
   EXECUTABLE: foobar
 
 on:
